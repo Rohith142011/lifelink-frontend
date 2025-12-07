@@ -1,0 +1,770 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>LifeLink | Secure B2B Organ Donation Platform</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+<body>
+    <nav class="navbar">
+    <div class="container">
+        
+        <div class="nav-brand">
+            <img src="folder\Untitled design (1).svg" alt="logo" class="navbar-logo">
+            <h1 class="logo">Life<span>Link</span></h1>
+        </div>
+
+        <ul class="nav-links">
+            <li><a href="#" id="nav-home" class="active">Home</a></li>
+            <li><a href="#" id="nav-features">Features</a></li>
+            <li><a href="#" id="nav-register">Hospital Registration</a></li>
+            <li><a href="#" id="nav-login">Hospital Login</a></li>
+        </ul>
+
+    </div>
+</nav>
+
+
+            <button class="mobile-menu-btn">
+                <i class="fas fa-bars"></i>
+            </button>
+        </div>
+    </nav>
+    <main class="main-content">
+        <section id="home-section" class="page-section active">
+            <div class="hero">
+                <div class="container">
+                    <div class="hero-content">
+                        <div class="hero-text">
+                            <h1 class="hero-title">Connecting Hospitals. <span class="gradient-text">Saving Lives.</span></h1>
+                            <p class="hero-subtext">LifeLink is a secure B2B platform that verifies hospitals and connects them with organ availability networks. Streamlining the organ donation process through verified hospital authentication and real-time coordination.</p>
+                            <div class="hero-buttons">
+                                <button class="btn btn-primary btn-glow" id="home-register-btn">
+                                    <i class="fas fa-hospital"></i> Register Hospital
+                                </button>
+                                <button class="btn btn-secondary" id="home-login-btn">
+                                    <i class="fas fa-sign-in-alt"></i> Hospital Login
+                                </button>
+                            </div>
+                        </div>
+                        <div class="hero-visual">
+                            <div class="network-shapes">
+                                <div class="shape shape-1"></div>
+                                <div class="shape shape-2"></div>
+                                <div class="shape shape-3"></div>
+                                <div class="shape shape-4"></div>
+                                <div class="shape shape-5"></div>
+                                <div class="connections">
+                                    <div class="connection"></div>
+                                    <div class="connection"></div>
+                                    <div class="connection"></div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="stats">
+                <div class="container">
+                    <div class="stats-grid">
+                        <div class="stat-card">
+                            <div class="stat-icon">
+                                <i class="fas fa-shield-check"></i>
+                            </div>
+                            <h3 class="stat-number" id="verified-hospitals">125+</h3>
+                            <p class="stat-label">Verified Hospitals</p>
+                        </div>
+                        <div class="stat-card">
+                            <div class="stat-icon">
+                                <i class="fas fa-heartbeat"></i>
+                            </div>
+                            <h3 class="stat-number" id="organs-available">42</h3>
+                            <p class="stat-label">Organs Available</p>
+                        </div>
+                        <div class="stat-card">
+                            <div class="stat-icon">
+                                <i class="fas fa-clock"></i>
+                            </div>
+                            <h3 class="stat-number" id="response-time">4.2</h3>
+                            <p class="stat-label">Avg Response (hours)</p>
+                        </div>
+                        <div class="stat-card">
+                            <div class="stat-icon">
+                                <i class="fas fa-check-circle"></i>
+                            </div>
+                            <h3 class="stat-number" id="success-rate">98%</h3>
+                            <p class="stat-label">Success Rate</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="overview">
+                <div class="container">
+                    <h2 class="section-title">How LifeLink Works</h2>
+                    <div class="overview-grid">
+                        <div class="overview-step">
+                            <div class="step-number">1</div>
+                            <h3>Hospital Verification</h3>
+                            <p>Hospitals submit legal documents for AI-powered verification to ensure authenticity and compliance.</p>
+                        </div>
+                        <div class="overview-step">
+                            <div class="step-number">2</div>
+                            <h3>Secure Network Access</h3>
+                            <p>Once verified, hospitals gain access to the secure organ donation network with encrypted data.</p>
+                        </div>
+                        <div class="overview-step">
+                            <div class="step-number">3</div>
+                            <h3>Organ Matching</h3>
+                            <p>Real-time organ availability matching with donor compatibility and logistical coordination.</p>
+                        </div>
+                        <div class="overview-step">
+                            <div class="step-number">4</div>
+                            <h3>Life-Saving Delivery</h3>
+                            <p>Coordinated organ delivery with tracking, verification, and success monitoring.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+        <section id="features-section" class="page-section">
+            <div class="container">
+                <h2 class="section-title">Platform Features</h2>
+                <p class="section-subtitle">Designed for hospitals, by medical professionals</p>
+                
+                <div class="features-grid">
+                    <div class="feature-card">
+                        <div class="feature-icon">
+                            <i class="fas fa-shield-alt"></i>
+                        </div>
+                        <h3>Verification System</h3>
+                        <p>AI-powered document authentication ensures only legitimate hospitals join the network.</p>
+                        <div class="feature-tags">
+                            <span class="tag">Secure</span>
+                            <span class="tag">AI-Powered</span>
+                        </div>
+                    </div>
+                    <div class="feature-card">
+                        <div class="feature-icon">
+                            <i class="fas fa-sync-alt"></i>
+                        </div>
+                        <h3>Real-Time Organ Sync</h3>
+                        <p>Live organ availability updates across the entire hospital network with compatibility matching.</p>
+                        <div class="feature-tags">
+                            <span class="tag">Real-Time</span>
+                            <span class="tag">Network</span>
+                        </div>
+                    </div>
+                    <div class="feature-card">
+                        <div class="feature-icon">
+                            <i class="fas fa-database"></i>
+                        </div>
+                        <h3>Secure Data Exchange</h3>
+                        <p>Encrypted medical data transfer between verified hospitals with complete privacy compliance.</p>
+                        <div class="feature-tags">
+                            <span class="tag">Encrypted</span>
+                            <span class="tag">HIPAA</span>
+                        </div>
+                    </div>
+                    <div class="feature-card">
+                        <div class="feature-icon">
+                            <i class="fas fa-user-lock"></i>
+                        </div>
+                        <h3>Access Control</h3>
+                        <p>Multi-level user permissions and role-based access for different hospital departments.</p>
+                        <div class="feature-tags">
+                            <span class="tag">RBAC</span>
+                            <span class="tag">Secure</span>
+                        </div>
+                    </div>
+                    <div class="feature-card">
+                        <div class="feature-icon">
+                            <i class="fas fa-bell"></i>
+                        </div>
+                        <h3>Real-Time Alerts</h3>
+                        <p>Instant notifications for organ availability, matches, and critical updates.</p>
+                        <div class="feature-tags">
+                            <span class="tag">Notifications</span>
+                            <span class="tag">Instant</span>
+                        </div>
+                    </div>
+                    <div class="feature-card">
+                        <div class="feature-icon">
+                            <i class="fas fa-chart-line"></i>
+                        </div>
+                        <h3>Analytics Dashboard</h3>
+                        <p>Comprehensive analytics on organ transplants, success rates, and network performance.</p>
+                        <div class="feature-tags">
+                            <span class="tag">Analytics</span>
+                            <span class="tag">Reports</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+        <section id="register-section" class="page-section">
+            <div class="container">
+                <h2 class="section-title">Hospital Registration</h2>
+                <p class="section-subtitle">Join our secure network of verified hospitals</p>
+                
+                <div class="registration-container">
+                    <div class="form-stepper">
+                        <div class="step active" data-step="1">
+                            <div class="step-circle">1</div>
+                            <p>Hospital Details</p>
+                        </div>
+                        <div class="step" data-step="2">
+                            <div class="step-circle">2</div>
+                            <p>Contact Information</p>
+                        </div>
+                        <div class="step" data-step="3">
+                            <div class="step-circle">3</div>
+                            <p>Verification</p>
+                        </div>
+                    </div>
+                    
+                    <form id="registration-form" class="registration-form">
+                        <div class="form-step active" id="step-1">
+                            <h3>Hospital Information</h3>
+                            <div class="form-grid">
+                                <div class="form-group">
+                                    <label for="hospital-name">Hospital Name *</label>
+                                    <input type="text" id="hospital-name" placeholder="Enter hospital name" required>
+                                    <span class="error-message"></span>
+                                </div>
+                                
+                                <div class="form-group">
+                                    <label for="registration-number">Registration Number *</label>
+                                    <input type="text" id="registration-number" placeholder="e.g., MED-2024-00123" required>
+                                    <span class="error-message"></span>
+                                </div>
+                                
+                                <div class="form-group">
+                                    <label for="hospital-type">Hospital Type *</label>
+                                    <select id="hospital-type" required>
+                                        <option value="" disabled selected>Select hospital type</option>
+                                        <option value="general">General Hospital</option>
+                                        <option value="specialty">Specialty Hospital</option>
+                                        <option value="university">University Medical Center</option>
+                                        <option value="government">Government Hospital</option>
+                                        <option value="private">Private Hospital</option>
+                                    </select>
+                                    <span class="error-message"></span>
+                                </div>
+                                
+                                <div class="form-group">
+                                    <label for="city">City *</label>
+                                    <input type="text" id="city" placeholder="Enter city" required>
+                                    <span class="error-message"></span>
+                                </div>
+                                
+                                <div class="form-group">
+                                    <label for="state">State *</label>
+                                    <input type="text" id="state" placeholder="Enter state" required>
+                                    <span class="error-message"></span>
+                                </div>
+                                
+                                <div class="form-group full-width">
+                                    <label for="address">Full Address *</label>
+                                    <textarea id="address" rows="2" placeholder="Full hospital address" required></textarea>
+                                    <span class="error-message"></span>
+                                </div>
+                            </div>
+                            
+                            <div class="form-navigation">
+                                <button type="button" class="btn btn-secondary" id="next-step-1">Next</button>
+                            </div>
+                        </div>
+                        <div class="form-step" id="step-2">
+                            <h3>Contact Information</h3>
+                            <div class="form-grid">
+                                <div class="form-group">
+                                    <label for="contact-person">Contact Person *</label>
+                                    <input type="text" id="contact-person" placeholder="Full name of contact person" required>
+                                    <span class="error-message"></span>
+                                </div>
+                                
+                                <div class="form-group">
+                                    <label for="contact-role">Role/Title *</label>
+                                    <input type="text" id="contact-role" placeholder="e.g., Transplant Coordinator" required>
+                                    <span class="error-message"></span>
+                                </div>
+                                
+                                <div class="form-group">
+                                    <label for="email">Email *</label>
+                                    <input type="email" id="email" placeholder="hospital@example.com" required>
+                                    <span class="error-message"></span>
+                                </div>
+                                
+                                <div class="form-group">
+                                    <label for="phone">Phone *</label>
+                                    <input type="tel" id="phone" placeholder="+1 (123) 456-7890" required>
+                                    <span class="error-message"></span>
+                                </div>
+                                
+                                <div class="form-group">
+                                    <label for="password">Password *</label>
+                                    <input type="password" id="password" placeholder="Minimum 8 characters" required>
+                                    <span class="error-message"></span>
+                                </div>
+                                
+                                <div class="form-group">
+                                    <label for="confirm-password">Confirm Password *</label>
+                                    <input type="password" id="confirm-password" placeholder="Re-enter your password" required>
+                                    <span class="error-message"></span>
+                                </div>
+                            </div>
+                            
+                            <div class="form-navigation">
+                                <button type="button" class="btn btn-secondary" id="prev-step-2">Previous</button>
+                                <button type="button" class="btn btn-primary" id="next-step-2">Next</button>
+                            </div>
+                        </div>
+                        <div class="form-step" id="step-3">
+                            <h3>Document Verification</h3>
+                            <div class="form-grid">
+                                <div class="form-group full-width">
+                                    <label for="documents">Upload Legal Documents *</label>
+                                    <div class="file-upload-area" id="file-upload-area">
+                                        <i class="fas fa-cloud-upload-alt"></i>
+                                        <p>Click to upload or drag and drop</p>
+                                        <p class="file-types">PDF, JPG, PNG (Max. 5MB)</p>
+                                        <input type="file" id="documents" accept=".pdf,.jpg,.jpeg,.png" required>
+                                    </div>
+                                    <div id="file-name" class="file-name"></div>
+                                    <p class="form-note">Upload hospital registration certificate, license, and any relevant medical certifications.</p>
+                                    <span class="error-message"></span>
+                                </div>
+                                
+                                <div class="form-group full-width">
+                                    <label>
+                                        <input type="checkbox" id="agree-terms" required>
+                                        I agree to the <a href="#">Terms of Service</a> and <a href="#">Privacy Policy</a>
+                                    </label>
+                                    <span class="error-message"></span>
+                                </div>
+                            </div>
+                            
+                            <div class="form-navigation">
+                                <button type="button" class="btn btn-secondary" id="prev-step-3">Previous</button>
+                                <button type="submit" class="btn btn-primary btn-glow">
+                                    <i class="fas fa-paper-plane"></i> Submit Registration
+                                </button>
+                            </div>
+                        </div>
+                    </form>
+                    <div id="verification-result" class="verification-result"></div>
+                </div>
+            </div>
+        </section>
+        <section id="login-section" class="page-section">
+            <div class="container">
+                <div class="login-card">
+                    <div class="login-header">
+                        <div class="login-icon">
+                            <i class="fas fa-hospital-symbol"></i>
+                        </div>
+                        <h2>Hospital Login</h2>
+                        <p class="login-subtitle">Access your secure organ donation network dashboard</p>
+                    </div>
+                    
+                    
+                    <form id="login-form" class="login-form">
+                        <div class="form-group">
+                            <label for="login-email">Email</label>
+                            <input type="email" id="login-email" placeholder="hospital@example.com" required>
+                            <span class="error-message"></span>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label for="login-password">Password</label>
+                            <input type="password" id="login-password" placeholder="Enter any password for demo" required>
+                            <span class="error-message"></span>
+                        </div>
+                        
+                        <div class="form-options">
+                            <label class="checkbox-label">
+                                <input type="checkbox" id="remember-me">
+                                <span>Remember me</span>
+                            </label>
+                            <a href="#" class="forgot-password">Verify identity</a>
+                        </div>
+                        
+                        <button type="submit" class="btn btn-primary btn-glow btn-block">
+                            <i class="fas fa-sign-in-alt"></i> Login to Dashboard
+                        </button>
+                    </form>
+                    
+                    <div id="login-error" class="error-message"></div>
+                    
+                    <p class="login-footer">
+                        Don't have an account? <a href="#" id="register-link">Register your hospital</a>
+                    </p>
+                </div>
+            </div>
+        </section>
+
+        <section id="dashboard-section" class="page-section">
+            <div class="container">
+                <div class="dashboard-header">
+                    <div class="hospital-info">
+                        <div class="hospital-icon">
+                            <i class="fas fa-hospital"></i>
+                        </div>
+                        <div>
+                            <h2 id="dashboard-hospital-name">City General Hospital</h2>
+                            <p>Organ Transplant Department Dashboard</p>
+                        </div>
+                    </div>
+                    <button class="btn btn-secondary" id="logout-btn">
+                        <i class="fas fa-sign-out-alt"></i> Logout
+                    </button>
+                </div>
+                
+                <div class="stats-cards">
+                    <div class="stat-card">
+                        <div class="stat-content">
+                            <h3 id="total-donors">0</h3>
+                            <p>Total Donors</p>
+                        </div>
+                        <div class="stat-icon">
+                            <i class="fas fa-users"></i>
+                        </div>
+                    </div>
+                    <div class="stat-card">
+                        <div class="stat-content">
+                            <h3 id="available-organs">0</h3>
+                            <p>Available Organs</p>
+                        </div>
+                        <div class="stat-icon">
+                            <i class="fas fa-heartbeat"></i>
+                        </div>
+                    </div>
+                    <div class="stat-card">
+                        <div class="stat-content">
+                            <h3 id="pending-deliveries">0</h3>
+                            <p>Pending Deliveries</p>
+                        </div>
+                        <div class="stat-icon">
+                            <i class="fas fa-ambulance"></i>
+                        </div>
+                    </div>
+                    <div class="stat-card">
+                        <div class="stat-content">
+                            <h3 id="completed-transplants">0</h3>
+                            <p>Completed Transplants</p>
+                        </div>
+                        <div class="stat-icon">
+                            <i class="fas fa-check-circle"></i>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="dashboard-content">
+                    <div class="dashboard-left">
+                        <div class="dashboard-card">
+                            <div class="card-header">
+                                <h3><i class="fas fa-shield-check"></i> Verification Status</h3>
+                            </div>
+                            <div class="card-body">
+                                <div class="verification-status">
+                                    <div class="status-icon" id="status-icon">
+                                        <i class="fas fa-clock"></i>
+                                    </div>
+                                    <div class="status-content">
+                                        <h4 id="verification-status-text">Pending Verification</h4>
+                                        <p id="verification-status-desc">Your documents are under review. This usually takes 24-48 hours.</p>
+                                    </div>
+                                    <button class="btn btn-secondary" id="upload-docs-btn">
+                                        <i class="fas fa-upload"></i> Upload New Docs
+                                    </button>
+                                </div>
+                                
+                                <div class="verification-details">
+                                    <div class="info-row">
+                                        <span class="info-label">Hospital Name:</span>
+                                        <span id="verify-hospital-name" class="info-value">-</span>
+                                    </div>
+                                    <div class="info-row">
+                                        <span class="info-label">Registration Number:</span>
+                                        <span id="verify-reg-number" class="info-value">-</span>
+                                    </div>
+                                    <div class="info-row">
+                                        <span class="info-label">Verification Date:</span>
+                                        <span id="verify-date" class="info-value">-</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="dashboard-card">
+                            <div class="card-header">
+                                <h3><i class="fas fa-bell"></i> Alerts & Notifications</h3>
+                                <span class="badge" id="alerts-count">3</span>
+                            </div>
+                            <div class="card-body">
+                                <div class="alerts-list" id="alerts-list">
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="dashboard-right">
+                        <div class="dashboard-card">
+                            <div class="card-header">
+                                <h3><i class="fas fa-heartbeat"></i> Organ Availability</h3>
+                                <button class="btn btn-primary btn-small" id="refresh-organs">
+                                    <i class="fas fa-sync-alt"></i> Refresh
+                                </button>
+                            </div>
+                            <div class="card-body">
+                                <div class="table-responsive">
+                                    <table class="organs-table">
+                                        <thead>
+                                            <tr>
+                                                <th>Organ</th>
+                                                <th>Blood Type</th>
+                                                <th>Donor Age</th>
+                                                <th>Hospital</th>
+                                                <th>Status</th>
+                                                <th>Action</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody id="organs-table-body">
+                                        </tbody>
+                                    </table>
+                                </div>
+                                <div class="card-actions">
+                                    <button class="btn btn-primary" id="request-organ-btn">
+                                        <i class="fas fa-plus"></i> New Organ Request
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="dashboard-card">
+                            <div class="card-header">
+                                <h3><i class="fas fa-history"></i> Recent Activity</h3>
+                            </div>
+                            <div class="card-body">
+                                <div class="activity-list" id="activity-list">
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="dashboard-card full-width">
+                    <div class="card-header">
+                        <h3><i class="fas fa-network-wired"></i> Hospital Network</h3>
+                    </div>
+                    <div class="card-body">
+                        <div class="network-hospitals">
+                            <div class="hospital-item">
+                                <div class="hospital-avatar">
+                                    <i class="fas fa-hospital"></i>
+                                </div>
+                                <div class="hospital-details">
+                                    <h4>City General Hospital</h4>
+                                    <p>Verified • 5 organs available</p>
+                                </div>
+                                <span class="hospital-status online">Online</span>
+                            </div>
+                            <div class="hospital-item">
+                                <div class="hospital-avatar">
+                                    <i class="fas fa-hospital"></i>
+                                </div>
+                                <div class="hospital-details">
+                                    <h4>St. Mary's Medical Center</h4>
+                                    <p>Verified • 3 organs available</p>
+                                </div>
+                                <span class="hospital-status online">Online</span>
+                            </div>
+                            <div class="hospital-item">
+                                <div class="hospital-avatar">
+                                    <i class="fas fa-hospital"></i>
+                                </div>
+                                <div class="hospital-details">
+                                    <h4>University Medical Center</h4>
+                                    <p>Verified • 2 organs available</p>
+                                </div>
+                                <span class="hospital-status online">Online</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-brand">
+                    <div class="logo-container">
+                        <div class="logo-icon">
+                            <div class="logo-shield">
+                                <div class="logo-heartbeat">
+                                    <div class="logo-link"></div>
+                                </div>
+                            </div>
+                        </div>
+                        <h2 class="logo">Life<span>Link</span></h2>
+                    </div>
+                    <p>Connecting verified hospitals with organ donation networks through secure authentication and real-time coordination.</p>
+                </div>
+                <div class="footer-links">
+                    <h4>Platform</h4>
+                    <ul>
+                        <li><a href="#" id="footer-home">Home</a></li>
+                        <li><a href="#" id="footer-features">Features</a></li>
+                        <li><a href="#" id="footer-register">Hospital Registration</a></li>
+                        <li><a href="#" id="footer-login">Hospital Login</a></li>
+                    </ul>
+                </div>
+                <div class="footer-links">
+                    <h4>Resources</h4>
+                    <ul>
+                        <li><a href="#">Documentation</a></li>
+                        <li><a href="#">API Access</a></li>
+                        <li><a href="#">Privacy Policy</a></li>
+                        <li><a href="#">Terms of Service</a></li>
+                    </ul>
+                </div>
+                <div class="footer-contact">
+                    <h4>Contact</h4>
+                    <div class="contact-item">
+                        <i class="fas fa-envelope"></i>
+                        <span>support@lifelink.org</span>
+                    </div>
+                    <div class="contact-item">
+                        <i class="fas fa-phone"></i>
+                        <span>+91 1234567890</span>
+                    </div>
+                    <div class="contact-item">
+                        <i class="fas fa-map-marker-alt"></i>
+                        <span></span>
+                    </div>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>&copy; 2025 LifeLink. All rights reserved. | <a href="#">Privacy Policy</a> | <a href="#">Terms of Service</a></p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Modals -->
+    <div class="modal" id="organ-request-modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3><i class="fas fa-clipboard-list"></i> Request Organ</h3>
+                <button class="close-modal">&times;</button>
+            </div>
+            <div class="modal-body">
+                <form id="organ-request-form">
+                    <div class="form-group">
+                        <label for="request-organ-type">Organ Needed *</label>
+                        <select id="request-organ-type" required>
+                            <option value="" disabled selected>Select organ needed</option>
+                            <option value="Heart">Heart</option>
+                            <option value="Kidney">Kidney</option>
+                            <option value="Liver">Liver</option>
+                            <option value="Lungs">Lungs</option>
+                            <option value="Pancreas">Pancreas</option>
+                            <option value="Cornea">Cornea</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label for="request-patient">Patient Name *</label>
+                        <input type="text" id="request-patient" placeholder="Enter patient name" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="request-urgency">Urgency Level *</label>
+                        <select id="request-urgency" required>
+                            <option value="Critical">Critical (Within 24 hours)</option>
+                            <option value="High">High (Within 1 week)</option>
+                            <option value="Medium">Medium (Within 1 month)</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label for="request-notes">Additional Notes</label>
+                        <textarea id="request-notes" rows="3" placeholder="Any specific requirements or notes"></textarea>
+                    </div>
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button class="btn btn-secondary close-modal">Cancel</button>
+                <button class="btn btn-primary btn-glow" id="submit-organ-request">Submit Request</button>
+            </div>
+        </div>
+    </div>
+
+    <div class="modal" id="success-modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3><i class="fas fa-check-circle"></i> Success</h3>
+                <button class="close-modal">&times;</button>
+            </div>
+            <div class="modal-body">
+                <p id="success-message">Operation completed successfully!</p>
+            </div>
+            <div class="modal-footer">
+                <button class="btn btn-primary close-modal">Continue</button>
+            </div>
+        </div>
+    </div>
+
+    <script type="module">
+  // Import Firebase SDKs you need
+  import { initializeApp } from "https://www.gstatic.com/firebasejs/12.6.0/firebase-app.js";
+  import { getFunctions, httpsCallable } from "https://www.gstatic.com/firebasejs/12.6.0/firebase-functions.js";
+
+  // Your Firebase Config
+  const firebaseConfig = {
+    apiKey: "AIzaSyCf9spzsRoy5OkSw4eLTH9fJWojRsj1ra0",
+    authDomain: "lifelink-43847.firebaseapp.com",
+    projectId: "lifelink-43847",
+    storageBucket: "lifelink-43847.firebasestorage.app",
+    messagingSenderId: "767466423474",
+    appId: "1:767466423474:web:ebe237281164503f22b5ab",
+    measurementId: "G-3MRH77581Z"
+  };
+
+  // Initialize Firebase
+  const app = initializeApp(firebaseConfig);
+
+  // Initialize Cloud Functions
+  const functions = getFunctions(app);
+  const registerUser = httpsCallable(functions, "registerUser");
+
+  // Submit Button Click Event
+  document.getElementById("submitBtn").addEventListener("click", async () => {
+      const name = document.getElementById("name").value;
+      const email = document.getElementById("email").value;
+      const phone = document.getElementById("phone").value;
+
+      if (!name || !email || !phone) {
+        alert("Please fill all fields!");
+        return;
+      }
+
+      try {
+          const response = await registerUser({ name, email, phone });
+
+          if (response.data.success) {
+              alert("Registration successful!");
+          } else {
+              alert("Error: " + response.data.error);
+          }
+      } catch (err) {
+          alert("Something went wrong: " + err.message);
+      }
+  });
+</script>
+
+</body>
+</html>
