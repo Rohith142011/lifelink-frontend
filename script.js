@@ -1,4 +1,6 @@
-// script.js (use as a module: <script type="module" src="script.js"></script>)
+// --------------------------------------------------
+// script.js (Firebase + Dashboard Logic)
+// --------------------------------------------------
 
 import { initializeApp } from "https://www.gstatic.com/firebasejs/12.6.0/firebase-app.js";
 import {
@@ -25,7 +27,9 @@ import {
   serverTimestamp
 } from "https://www.gstatic.com/firebasejs/12.6.0/firebase-firestore.js";
 
-// ----- 1) Firebase config (you provided) -----
+// --------------------------------------------------
+// 1. Firebase Config
+// --------------------------------------------------
 const firebaseConfig = {
   apiKey: "AIzaSyBZpzbJ5Ufva6wFhTMh3VaVpRTKHEe4M6c",
   authDomain: "lifelink-27c1b.firebaseapp.com",
@@ -36,307 +40,261 @@ const firebaseConfig = {
   measurementId: "G-JPXGVRR4LK"
 };
 
-// Initialize Firebase app, auth, and firestore
+// Init
 const app = initializeApp(firebaseConfig);
 const auth = getAuth(app);
 const db = getFirestore(app);
 
-// ---------- DOM references (adjust to your HTML IDs) ----------
-const registrationForm = document.getElementById('registration-form');
-const loginForm = document.getElementById('login-form');
-const logoutBtn = document.getElementById('logout-btn');
+console.log("Firebase Initialized");
 
-const dashboardHospitalName = document.getElementById('dashboard-hospital-name');
-const verificationStatusText = document.getElementById('verification-status-text');
-const verificationStatusDesc = document.getElementById('verification-status-desc');
-const statusIcon = document.getElementById('status-icon');
+// --------------------------------------------------
+// Helper functions
+// --------------------------------------------------
+const qs = (id) => document.getElementById(id);
+const safe = (el) => (el ? true : false);
 
-const organsTableBody = document.getElementById('organs-table-body');
-const totalDonorsEl = document.getElementById('total-donors');
-const availableOrgansEl = document.getElementById('available-organs');
-const pendingDeliveriesEl = document.getElementById('pending-deliveries');
-const completedTransplantsEl = document.getElementById('completed-transplants');
-
-const requestOrganBtn = document.getElementById('request-organ-btn');
-const refreshOrgansBtn = document.getElementById('refresh-organs');
-
-// ---------- Helper utilities ----------
-function qs(id) { return document.getElementById(id); }
-function generateId() { return Date.now().toString(36) + Math.random().toString(36).slice(2, 8); }
-
-function showSuccess(msg) { console.log('SUCCESS:', msg); /* replace with UI modal if needed */ }
-function showError(msg) { console.error('ERROR:', msg); }
-
-/* simple UI helpers depending on your markup */
-function showDashboardUI() {
-  // switch to dashboard section
-  document.getElementById('home-section').classList.remove('active');
-  document.getElementById('login-section').classList.remove('active');
-  document.getElementById('register-section').classList.remove('active');
-  document.getElementById('dashboard-section').classList.add('active');
-}
-function showHomeUI() {
-  document.getElementById('home-section').classList.add('active');
-  document.getElementById('login-section').classList.remove('active');
-  document.getElementById('register-section').classList.remove('active');
-  document.getElementById('dashboard-section').classList.remove('active');
+function showSuccess(msg) {
+  console.log("%cSUCCESS: " + msg, "color: #00c853");
 }
 
-// ---------- Auth + Firestore flows ----------
+function showError(msg) {
+  console.log("%cERROR: " + msg, "color: red");
+}
 
-// 1) Registration: createUserWithEmailAndPassword -> create hospital document in Firestore
+// --------------------------------------------------
+// UI switching
+// --------------------------------------------------
+function showSection(id) {
+  ["home-section", "login-section", "register-section", "dashboard-section"].forEach(sec => {
+    const element = qs(sec);
+    if (element) element.classList.remove("active");
+  });
+
+  const target = qs(id);
+  if (target) target.classList.add("active");
+}
+
+function showDashboardUI() { showSection("dashboard-section"); }
+function showHomeUI() { showSection("home-section"); }
+
+// --------------------------------------------------
+// Registration
+// --------------------------------------------------
 async function handleRegistration(e) {
   e.preventDefault();
-  try {
-    // read form fields (IDs must match)
-    const hospitalName = qs('hospital-name').value.trim();
-    const registrationNumber = qs('registration-number').value.trim();
-    const hospitalType = qs('hospital-type').value;
-    const city = qs('city').value.trim();
-    const state = qs('state').value.trim();
-    const address = qs('address').value.trim();
-    const contactPerson = qs('contact-person').value.trim();
-    const contactRole = qs('contact-role').value.trim();
-    const email = qs('email').value.trim();
-    const phone = qs('phone').value.trim();
-    const password = qs('password').value;
 
-    if (!hospitalName || !email || !password) {
-      showError('Please fill required fields.');
-      return;
+  try {
+    const data = {
+      hospitalName: qs("hospital-name")?.value.trim(),
+      registrationNumber: qs("registration-number")?.value.trim(),
+      hospitalType: qs("hospital-type")?.value,
+      city: qs("city")?.value.trim(),
+      state: qs("state")?.value.trim(),
+      address: qs("address")?.value.trim(),
+      contactPerson: qs("contact-person")?.value.trim(),
+      contactRole: qs("contact-role")?.value.trim(),
+      email: qs("email")?.value.trim(),
+      phone: qs("phone")?.value.trim(),
+      password: qs("password")?.value
+    };
+
+    if (!data.hospitalName || !data.email || !data.password) {
+      return showError("Fill required fields");
     }
 
-    // 1. Create user in Firebase Auth
-    const credential = await createUserWithEmailAndPassword(auth, email, password);
-    const uid = credential.user.uid;
+    // Create user
+    const cred = await createUserWithEmailAndPassword(auth, data.email, data.password);
+    const uid = cred.user.uid;
 
-    // 2. Create hospital doc in Firestore
-    const hospitalDocRef = doc(db, 'hospitals', uid);
-    await setDoc(hospitalDocRef, {
+    // Save hospital document
+    await setDoc(doc(db, "hospitals", uid), {
+      ...data,
       uid,
-      hospitalName,
-      registrationNumber,
-      hospitalType,
-      city,
-      state,
-      address,
-      contactPerson,
-      contactRole,
-      email,
-      phone,
       createdAt: serverTimestamp(),
-      status: 'pending', // admin will update to 'verified' later
+      status: "pending",
       verification: {
         reason: null,
         verifiedAt: null
       }
     });
 
-    // 3. Send client-side verification email (optional)
-    try {
-      await sendEmailVerification(credential.user);
-    } catch (err) {
-      console.warn('Email verification send failed (client):', err.message);
-    }
+    try { await sendEmailVerification(cred.user); } catch {}
 
-    showSuccess('Registered. Verification in progress. A welcome email will be sent shortly.');
-    registrationForm.reset();
+    showSuccess("Registration completed.");
+    e.target.reset();
+
   } catch (err) {
     showError(err.message);
-    document.getElementById('verification-result').textContent = err.message;
+    if (qs("verification-result")) qs("verification-result").textContent = err.message;
   }
 }
 
-// 2) Login
+// --------------------------------------------------
+// Login
+// --------------------------------------------------
 async function handleLogin(e) {
   e.preventDefault();
   try {
-    const email = qs('login-email').value.trim();
-    const password = qs('login-password').value;
-    if (!email || !password) {
-      showError('Enter credentials');
-      return;
-    }
+    const email = qs("login-email")?.value.trim();
+    const password = qs("login-password")?.value;
+
+    if (!email || !password) return showError("Enter credentials");
+
     await signInWithEmailAndPassword(auth, email, password);
-    showSuccess('Logged in');
+    showSuccess("Logged in");
   } catch (err) {
     showError(err.message);
-    qs('login-error').textContent = "Invalid email/password";
+    if (qs("login-error")) qs("login-error").textContent = "Invalid email/password";
   }
 }
 
-// 3) Logout
+// --------------------------------------------------
+// Logout
+// --------------------------------------------------
 async function handleLogout() {
   try {
     await signOut(auth);
     showHomeUI();
-    showSuccess('Logged out');
+    showSuccess("Logged out");
   } catch (err) {
     showError(err.message);
   }
 }
 
-// 4) When auth state changes, load dashboard or show home
+// --------------------------------------------------
+// Dashboard + Realtime
+// --------------------------------------------------
 let currentHospital = null;
-onAuthStateChanged(auth, async (user) => {
-  if (user) {
-    // user logged in: load hospital doc
-    const hospitalDoc = await getDoc(doc(db, 'hospitals', user.uid));
-    if (hospitalDoc.exists()) {
-      currentHospital = hospitalDoc.data();
-      populateDashboard(currentHospital);
-      subscribeDashboardRealtime();
-      showDashboardUI();
-    } else {
-      // If hospital doc missing, still let them create
-      currentHospital = null;
-      showHomeUI();
-    }
-  } else {
-    // logged out
-    currentHospital = null;
-    showHomeUI();
-    detachRealtimeListeners();
-  }
-});
-
-// ---------- Dashboard population & realtime ----------
-
 let donorsUnsub = null;
 let requestsUnsub = null;
 let hospitalsUnsub = null;
 
-function populateDashboard(hospital) {
-  if (!hospital) return;
-  dashboardHospitalName.textContent = hospital.hospitalName || 'Hospital Dashboard';
-  verificationStatusText.textContent = hospital.status === 'verified' ? 'Verified Hospital' : (hospital.status === 'rejected' ? 'Verification Rejected' : 'Pending Verification');
-  verificationStatusDesc.textContent = hospital.status === 'verified' ? 'Your hospital is verified.' : 'Your documents are under review.';
-  statusIcon.className = 'status-icon ' + (hospital.status === 'verified' ? 'verified' : (hospital.status === 'rejected' ? 'rejected' : ''));
-  // update stats (simple)
-  // we'll load donors & requests via realtime below
+onAuthStateChanged(auth, async (user) => {
+  if (!user) {
+    showHomeUI();
+    detachRealtimeListeners();
+    return;
+  }
+
+  const hospitalDoc = await getDoc(doc(db, "hospitals", user.uid));
+
+  if (hospitalDoc.exists()) {
+    currentHospital = hospitalDoc.data();
+    populateDashboard(currentHospital);
+    subscribeRealtime();
+    showDashboardUI();
+  } else {
+    currentHospital = null;
+    showHomeUI();
+  }
+});
+
+// Dashboard UI fill
+function populateDashboard(h) {
+  if (!h) return;
+
+  qs("dashboard-hospital-name").textContent = h.hospitalName;
+  qs("verification-status-text").textContent =
+    h.status === "verified"
+      ? "Verified Hospital"
+      : h.status === "rejected"
+      ? "Verification Rejected"
+      : "Pending Verification";
+
+  qs("verification-status-desc").textContent =
+    h.status === "verified"
+      ? "Your hospital is verified."
+      : "Your documents are under review.";
 }
 
-function subscribeDashboardRealtime() {
-  // donors (organs) collection
-  const donorsRef = collection(db, 'donors');
-  donorsUnsub = onSnapshot(donorsRef, (snapshot) => {
-    const donors = [];
-    snapshot.forEach(doc => donors.push({ id: doc.id, ...doc.data() }));
+function subscribeRealtime() {
+  donorsUnsub = onSnapshot(collection(db, "donors"), (snap) => {
+    const donors = snap.docs.map(d => ({ id: d.id, ...d.data() }));
     renderDonors(donors);
   });
 
-  // organ requests
-  const requestsRef = collection(db, 'requests');
-  requestsUnsub = onSnapshot(requestsRef, (snapshot) => {
-    const requests = [];
-    snapshot.forEach(doc => requests.push({ id: doc.id, ...doc.data() }));
-    renderRequests(requests);
-  });
-
-  // hospitals list (for network)
-  const hospitalsRef = collection(db, 'hospitals');
-  hospitalsUnsub = onSnapshot(hospitalsRef, (snapshot) => {
-    // optionally render hospital network
-    // you can show verified hospitals list
+  requestsUnsub = onSnapshot(collection(db, "requests"), (snap) => {
+    const requests = snap.docs.map(r => ({ id: r.id, ...r.data() }));
+    updateRequestStats(requests);
   });
 }
 
 function detachRealtimeListeners() {
-  if (donorsUnsub) donorsUnsub();
-  if (requestsUnsub) requestsUnsub();
-  if (hospitalsUnsub) hospitalsUnsub();
-  donorsUnsub = requestsUnsub = hospitalsUnsub = null;
+  donorsUnsub?.(); requestsUnsub?.(); hospitalsUnsub?.();
 }
 
-function renderDonors(donors) {
-  // update stats
-  totalDonorsEl.textContent = donors.length;
-  const available = donors.filter(d => d.status === 'available').length;
-  availableOrgansEl.textContent = available;
-  // render table
-  if (!organsTableBody) return;
-  organsTableBody.innerHTML = '';
-  if (donors.length === 0) {
-    organsTableBody.innerHTML = `<tr><td colspan="6" style="text-align:center;padding:20px;color:var(--text-muted)">No organs available</td></tr>`;
+// Render donors in table
+function renderDonors(list) {
+  if (!qs("organs-table-body")) return;
+
+  qs("total-donors").textContent = list.length;
+  qs("available-organs").textContent = list.filter(d => d.status === "available").length;
+
+  const tbody = qs("organs-table-body");
+  tbody.innerHTML = "";
+
+  if (list.length === 0) {
+    tbody.innerHTML = `<tr><td colspan="6" style="text-align:center;">No organs available</td></tr>`;
     return;
   }
-  donors.forEach(d => {
-    const tr = document.createElement('tr');
+
+  list.forEach(d => {
+    const tr = document.createElement("tr");
     tr.innerHTML = `
       <td>${d.organ}</td>
-      <td>${d.bloodGroup || '--'}</td>
-      <td>${d.age || '--'}</td>
-      <td>${d.hospitalName || d.hospital || '--'}</td>
-      <td><span class="tag">${d.status || 'available'}</span></td>
+      <td>${d.bloodGroup || "--"}</td>
+      <td>${d.age || "--"}</td>
+      <td>${d.hospitalName || "--"}</td>
+      <td><span class="tag">${d.status}</span></td>
       <td><button class="btn btn-small" data-id="${d.id}">Request</button></td>
     `;
-    organsTableBody.appendChild(tr);
+    tbody.appendChild(tr);
 
-    tr.querySelector('button')?.addEventListener('click', () => requestOrgan(d));
+    tr.querySelector("button").addEventListener("click", () => requestOrgan(d));
   });
 }
 
-function renderRequests(requests) {
-  pendingDeliveriesEl.textContent = requests.filter(r => r.status === 'pending').length;
-  completedTransplantsEl.textContent = requests.filter(r => r.status === 'completed').length;
-  // Optionally update UI list
+function updateRequestStats(list) {
+  qs("pending-deliveries").textContent = list.filter(r => r.status === "pending").length;
+  qs("completed-transplants").textContent = list.filter(r => r.status === "completed").length;
 }
 
-// ---------- Actions ----------
+// Submit organ request
+async function requestOrgan(d) {
+  if (!auth.currentUser) return showError("Login required");
 
-async function requestOrgan(donor) {
-  if (!auth.currentUser) {
-    showError('Login required');
-    return;
-  }
   try {
-    await addDoc(collection(db, 'requests'), {
+    await addDoc(collection(db, "requests"), {
       hospitalId: auth.currentUser.uid,
-      hospitalName: currentHospital?.hospitalName || 'Unknown',
-      organ: donor.organ,
-      donorId: donor.id,
-      urgency: 'High',
-      status: 'pending',
+      hospitalName: currentHospital?.hospitalName,
+      organ: d.organ,
+      donorId: d.id,
+      urgency: "High",
+      status: "pending",
       createdAt: serverTimestamp()
     });
-    showSuccess('Organ request submitted');
+
+    showSuccess("Organ request submitted");
   } catch (err) {
     showError(err.message);
   }
 }
 
-// create a donor (example form not included in HTML — you can create a simple modal in UI)
-async function createDonor(payload) {
-  // payload = { name, age, bloodGroup, organ, hospital, status: 'available' }
-  try {
-    await addDoc(collection(db, 'donors'), {
-      ...payload,
-      createdAt: serverTimestamp()
-    });
-    showSuccess('Donor added');
-  } catch (err) {
-    showError(err.message);
-  }
-}
-
-// refresh button handler (just forces reloads by refetching)
+// --------------------------------------------------
+// Manual refresh
+// --------------------------------------------------
 async function refreshData() {
-  // simple refetch for now
-  const donorsSnapshot = await getDocs(collection(db, 'donors'));
-  renderDonors(donorsSnapshot.docs.map(d => ({ id: d.id, ...d.data() })));
+  const snap = await getDocs(collection(db, "donors"));
+  const donors = snap.docs.map(d => ({ id: d.id, ...d.data() }));
+  renderDonors(donors);
 }
 
-// ---------- Wire up form events ----------
-if (registrationForm) registrationForm.addEventListener('submit', handleRegistration);
-if (loginForm) loginForm.addEventListener('submit', handleLogin);
-if (logoutBtn) logoutBtn.addEventListener('click', handleLogout);
-if (refreshOrgansBtn) refreshOrgansBtn.addEventListener('click', refreshData);
+// --------------------------------------------------
+// Attach listeners
+// --------------------------------------------------
+qs("registration-form")?.addEventListener("submit", handleRegistration);
+qs("login-form")?.addEventListener("submit", handleLogin);
+qs("logout-btn")?.addEventListener("click", handleLogout);
+qs("refresh-organs")?.addEventListener("click", refreshData);
 
-// Optional: expose functions to window for debugging
-window.LifeLink = {
-  createDonor,
-  requestOrgan,
-  refreshData
-};
-
-console.log('script.js loaded — Firebase initialized.');
+window.LifeLink = { requestOrgan, refreshData };
